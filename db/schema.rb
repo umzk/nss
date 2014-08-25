@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140825111144) do
+ActiveRecord::Schema.define(version: 20140825125759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applications", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "serials", force: true do |t|
+    t.string   "title"
+    t.text     "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_list_serials", id: false, force: true do |t|
+    t.integer "user_list_id"
+    t.integer "serial_id"
+  end
+
+  add_index "user_list_serials", ["serial_id", "user_list_id"], name: "index_user_list_serials_on_serial_id_and_user_list_id", using: :btree
+  add_index "user_list_serials", ["user_list_id", "serial_id"], name: "index_user_list_serials_on_user_list_id_and_serial_id", using: :btree
 
   create_table "user_lists", force: true do |t|
     t.integer  "user_id"

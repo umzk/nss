@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   validate  :email, presence: true, uniqueness: true
   validates_associated :user_list
   has_one :user_list
-
+  has_many :applications, dependent: :destroy
 end
